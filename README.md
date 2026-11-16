@@ -1,10 +1,10 @@
-# Roma Joyería — landing page
+# Roma Joyería CDMX — landing page
 
 One-page landing site for Roma Joyería (wholesale and retail, Centro Histórico, CDMX).
 No cart: every call to action opens WhatsApp with a pre-written message.
 
-Stack: Astro 7 (static output) + Svelte 5 (form only) + Tailwind CSS 4.
-Read `CLAUDE.md` for design, accessibility and structure rules.
+Current stack: Astro 7 (static output) + Svelte 5 (form only) + Tailwind CSS 4.
+`CLAUDE.md` contains design, accessibility and structure desitions.
 
 ## Commands
 
@@ -42,3 +42,12 @@ Everything pending appears on the page inside `[brackets]`.
 - [ ] One business name: "Roma Joyería" vs "Joyería Roma"
 - [ ] Privacy notice text reviewed by a lawyer
 - [ ] Domain (`astro.config.mjs` → `site`), embedded map URL, Instagram and Facebook
+
+TODO list
+
+- [ ] Show and interate copy
+- [ ] Do some smoke testing
+- [ ] Deploy the page somewhere
+- [ ] Connect the domain
+- [ ] Audit internals for maintainability
+- [ ] Implements whats app workflow

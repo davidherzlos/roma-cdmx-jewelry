@@ -1,0 +1,101 @@
+---
+import { site } from '@/config/site';
+import { ui } from '@/data/content';
+
+/**
+ * Roma Joyería logo: "R ◇ M A" with the tagline right-aligned underneath.
+ * Real text (not an image): sharp at any size, accessible, and follows the theme.
+ *
+ * Letters inherit `color` from the container; the diamond and the tagline use
+ * `--logo-accent`, defined per theme in global.css.
+ */
+interface Props {
+  /** Size of the wordmark (everything else scales from it). Header = 34px. */
+  size?: string;
+  /** Show the tagline under the wordmark. */
+  tagline?: boolean;
+  /** If set, the logo becomes a link (e.g. "#inicio"). */
+  href?: string;
+  /** Diamond stroke width (6.5 at large sizes; 7.5 reads better at 34px or less). */
+  stroke?: number;
+  class?: string;
+}
+
+const { size = '34px', tagline = true, href, stroke = 7.5, class: className = '' } = Astro.props;
+
+// The diamond stands in for the second glyph of the wordmark (the "O" of ROMA).
+const letters = [...site.logo.word];
+const beforeDiamond = letters[0];
+const afterDiamond = letters.slice(2).join('');
+
+const Tag = href ? 'a' : 'div';
+const tagProps = href ? { href } : { role: 'img' as const };
+---
+
+<Tag
+  {...tagProps}
+  aria-label={href ? ui.logoLabel : site.name}
+  class:list={['roma-logo', className]}
+  style={`--logo-size: ${size}`}
+>
+  <span class="roma-logo__word" aria-hidden="true">
+    {beforeDiamond}
+    <svg
+      class="roma-logo__diamond"
+      viewBox="0 0 125 100"
+      fill="none"
+      stroke="currentColor"
+      stroke-width={stroke}
+      stroke-linejoin="round"
+      stroke-linecap="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      <polygon points="14,4 111,4 122,30 62.5,96 3,30"></polygon>
+      <polyline points="3,30 122,30"></polyline>
+      <polyline points="14,4 38,30 62.5,4 87,30 111,4"></polyline>
+      <polyline points="38,30 62.5,96 87,30"></polyline>
+    </svg>
+    {afterDiamond}
+  </span>
+  {tagline && <span class="roma-logo__tagline" aria-hidden="true">{site.logo.tagline}</span>}
+</Tag>
+
+<style>
+  .roma-logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    line-height: 1;
+    text-decoration: none;
+    color: inherit;
+  }
+  .roma-logo__word {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.12em; /* = letter-spacing between R, diamond and M */
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 600;
+    font-size: var(--logo-size);
+    letter-spacing: 0.12em;
+    margin-right: -0.12em; /* the trailing space must not push the alignment */
+    white-space: nowrap;
+  }
+  .roma-logo__diamond {
+    width: 0.89em;
+    height: 0.71em;
+    color: var(--logo-accent);
+    /* the gap already separates them; drop the letter-spacing inherited from the R */
+    margin-left: -0.12em;
+  }
+  .roma-logo__tagline {
+    margin-top: calc(var(--logo-size) * 0.118);
+    font-family: 'Lato', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: calc(var(--logo-size) * 0.32);
+    letter-spacing: 0.28em;
+    margin-right: -0.28em;
+    text-transform: uppercase;
+    color: var(--logo-accent);
+  }
+</style>

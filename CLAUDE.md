@@ -148,6 +148,21 @@ Visítanos · Contacto**. The active section is highlighted while scrolling (Int
 **Playfair Display** (headings, logo, numbers, quotes) + **Lato** (everything else). Fonts were
 tested and these were kept; do not change them.
 
+### Logo
+
+- Component: `src/components/ui/Logo.astro` — real text, not an image. The wordmark is "ROMA"
+  with an inline SVG diamond standing in for the "O", and the tagline ("Joyería") right-aligned
+  underneath. Text comes from `site.logo` (`word`, `tagline`); props are `size` (default
+  `34px`), `tagline`, `href`, `stroke` (diamond weight: `7.5` at ≤ 34 px, `6.5` when larger).
+- Colours: the letters inherit the theme's text colour; the diamond and the tagline use
+  `--logo-accent` — day `#8A6A2F`, night `#D6B97A` (set in `global.css` with the other tokens).
+- Favicons and PWA icons live in `public/` (`favicon.ico`, `favicon.svg`, `favicon-32.png`,
+  `apple-touch-icon.png`, `icon-192.png`, `icon-512.png`, `icon-maskable-512.png`,
+  `site.webmanifest`); exported logo files for other uses (og:image, email, print, WhatsApp
+  profile) are in `public/brand/`.
+- The diamond is traced from a photo of the shop's card. **When the printer's original vector
+  file (SVG/PDF/AI) arrives, replace the diamond shape with it** so the mark is exact.
+
 ### Day palette (default light)
 
 | Token | Hex |
