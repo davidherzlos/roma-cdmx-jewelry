@@ -1,16 +1,16 @@
-# Fotos
+# Photos
 
-Coloca aquí las fotos reales y escribe su ruta en `src/config/site.ts` (`photos`, `hero`)
-o en `src/data/content.ts` (`catalog.categories[].photo`). Mientras una ruta esté vacía,
-la página muestra un marcador de posición.
+Put the real photos here and set their path in `src/config/site.ts` (`photos`, `hero`)
+or in `src/data/content.ts` (`catalog.categories[].photo`). While a path is empty,
+the page shows a placeholder.
 
-| Archivo sugerido | Dónde se usa | Medida sugerida |
+| Suggested file | Where it's used | Suggested size |
 | --- | --- | --- |
-| `hero-fondo-dia.jpg` ✅ | Fondo del hero en modo día | 2400 × 1400 |
-| `hero-fondo-noche.jpg` ✅ | Fondo del hero en modo noche | 2400 × 1400 |
-| `hero-vitrina.jpg` | Foto principal del hero (`site.photos.hero`) | 1200 × 1000 |
-| `fachada.jpg` | Nuestra historia (`site.photos.facade`) | 1200 × 1040 |
-| `cat-anillos.jpg`, `cat-cadenas.jpg`, … | Tarjetas del catálogo (una por categoría) | 800 × 480 |
+| `hero-fondo-dia.jpg` ✅ | Hero background, day mode | 2400 × 1400 |
+| `hero-fondo-noche.jpg` ✅ | Hero background, night mode | 2400 × 1400 |
+| `hero-vitrina.jpg` | Main hero photo (`site.photos.hero`) | 1200 × 1000 |
+| `fachada.jpg` | Our history section (`site.photos.facade`) | 1200 × 1040 |
+| `cat-anillos.jpg`, `cat-cadenas.jpg`, … | Catalog cards (one per category) | 800 × 480 |
 
-Comprime cada foto (JPEG/WebP, < 300 KB) antes de subirla. El texto alternativo de las fotos
-sale de `content.ts`.
+Compress each photo (JPEG/WebP, < 300 KB) before uploading it. Photo alt text
+comes from `content.ts`.
