@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import tailwindcss from '@tailwindcss/vite';
 
-// [Dominio pendiente] — cambiar por el dominio real cuando el cliente lo confirme.
+// [Domain pending] — change to the real domain once the client confirms it.
 export default defineConfig({
   site: 'https://example.com',
   output: 'static',

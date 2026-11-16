@@ -1,12 +1,12 @@
 ---
 /**
- * Foto real o, si aún no hay archivo, un marcador de posición accesible.
+ * Real photo, or an accessible placeholder if there's no file yet.
  */
 interface Props {
   src?: string;
-  /** Texto alternativo en español (se usa también como etiqueta del marcador). */
+  /** Spanish alt text (also used as the placeholder's label). */
   alt: string;
-  /** Texto visible del marcador, p. ej. "[Foto · fachada]". */
+  /** Visible placeholder text, e.g. "[Foto · fachada]". */
   placeholder: string;
   class?: string;
   loading?: 'lazy' | 'eager';

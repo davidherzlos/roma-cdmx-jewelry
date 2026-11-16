@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 
-/* ───────────────────────── Paleta de DÍA (por defecto) ───────────────────────── */
+/* ───────────────────────── DAY palette (default) ───────────────────────── */
 :root {
   --bg: #ffffff;
   --bg-alt: #f7f3ec;
@@ -91,7 +91,7 @@
   color-scheme: light;
 }
 
-/* ───────────────────────── Paleta de NOCHE ───────────────────────── */
+/* ───────────────────────── NIGHT palette ───────────────────────── */
 :root[data-theme='night'] {
   --bg: #0e0c0a;
   --bg-alt: #14110d;
@@ -182,17 +182,17 @@
   color-scheme: dark;
 }
 
-/* ───────────────────────── Tokens de Tailwind ───────────────────────── */
+/* ───────────────────────── Tailwind tokens ───────────────────────── */
 @theme {
   --font-display: 'Playfair Display', Georgia, serif;
   --font-sans: 'Lato', system-ui, sans-serif;
 
-  /* ≤767 teléfono · 768–1024 tablet · ≥1025 escritorio · ≥1101 menú completo */
+  /* ≤767 phone · 768–1024 tablet · ≥1025 desktop · ≥1101 full menu */
   --breakpoint-md: 768px;
   --breakpoint-lg: 1025px;
   --breakpoint-nav: 1101px;
 
-  /* Colores fijos (iguales en día y noche) */
+  /* Fixed colours (same in day and night) */
   --color-forest: #1f2a24;
   --color-gold-light: #d6b97a;
   --color-gold-mid: #b8914a;
@@ -202,7 +202,7 @@
   --color-ink-fixed: #2a2622;
 }
 
-/* Colores que cambian con el tema: apuntan a las variables de arriba. */
+/* Colours that change with the theme: point to the variables above. */
 @theme inline {
   --color-bg: var(--bg);
   --color-cream: var(--bg-alt);
@@ -314,8 +314,8 @@
   }
 }
 
-/* ───────────────────────── Contenedor ───────────────────────── */
-/* El ancho sale de site.containerWidth → --container-max en <html>. */
+/* ───────────────────────── Container ───────────────────────── */
+/* Width comes from site.containerWidth → --container-max on <html>. */
 @utility container-site {
   width: 100%;
   max-width: var(--container-max, 1200px);
@@ -326,14 +326,14 @@
     padding-inline: 20px;
   }
 }
-/* Paneles que flotan dentro del contenedor (p. ej. la barra de confianza). */
+/* Panels that float inside the container (e.g. the trust bar). */
 @utility container-inset {
   width: 100%;
   max-width: calc(var(--container-max, 1200px) - 64px);
   margin-inline: auto;
 }
 
-/* ───────────────────────── Componentes ───────────────────────── */
+/* ───────────────────────── Components ───────────────────────── */
 @layer components {
   .skip-link {
     position: absolute;
@@ -352,7 +352,7 @@
     top: 12px;
   }
 
-  /* Vidrio esmerilado */
+  /* Frosted glass */
   .glass {
     -webkit-backdrop-filter: blur(var(--glass-blur, 14px));
     backdrop-filter: blur(var(--glass-blur, 14px));
@@ -362,7 +362,7 @@
     backdrop-filter: blur(14px) saturate(140%);
   }
 
-  /* Interruptor día/noche */
+  /* Day/night switch */
   .theme-knob {
     transform: translateX(0);
     transition:
@@ -374,7 +374,7 @@
     transform: translateX(34px);
   }
 
-  /* Hero: imagen de fondo + velo */
+  /* Hero: background image + veil */
   .hero-img {
     background-image: var(--hero-img);
     background-size: cover;
@@ -391,7 +391,7 @@
     }
   }
 
-  /* Fondos con patrón (fijos solo en escritorio) */
+  /* Patterned backgrounds (fixed on desktop only) */
   .bg-glow {
     background-image: var(--sec-glow);
   }
@@ -426,13 +426,13 @@
     }
   }
 
-  /* Texto con contorno decorativo (Contacto) */
+  /* Decorative outline text (Contact) */
   .outline-text {
     color: transparent;
     -webkit-text-stroke: 1px var(--outline-text);
   }
 
-  /* Elevación de tarjetas */
+  /* Card lift */
   .lift {
     transition:
       transform 0.35s ease,
@@ -446,8 +446,8 @@
     box-shadow: var(--card-shadow-hover) !important;
   }
 
-  /* ── Detalles exclusivos de noche ── */
-  /* Línea dorada degradada: SOLO para separar secciones. */
+  /* ── Night-only details ── */
+  /* Gold gradient line: ONLY for section separation. */
   [data-theme='night'] .section-hairline {
     position: relative;
   }
@@ -463,7 +463,7 @@
     pointer-events: none;
     z-index: 1;
   }
-  /* Texto dorado degradado: solo en los acentos itálicos y las cifras de Historia. */
+  /* Gold gradient text: only on italic accents and History stats. */
   [data-theme='night'] .text-accent {
     background: linear-gradient(100deg, #b8914a 10%, #f0d9a3 50%, #b8914a 90%);
     -webkit-background-clip: text;
@@ -486,7 +486,7 @@
   }
 }
 
-/* Transición suave al cambiar de tema (la clase se pone solo durante el cambio). */
+/* Smooth transition on theme change (the class is set only during the switch). */
 html.theme-anim,
 html.theme-anim *,
 html.theme-anim *::before,
@@ -501,7 +501,7 @@ html.theme-anim *::after {
     opacity 0.5s ease !important;
 }
 
-/* ───────────────────────── Animaciones ───────────────────────── */
+/* ───────────────────────── Animations ───────────────────────── */
 @keyframes fx-rise {
   from {
     opacity: 0;
@@ -573,7 +573,7 @@ html.theme-anim *::after {
     animation-timeline: view();
   }
 }
-/* Pulso del botón flotante: 3 ciclos y se detiene. */
+/* Floating button pulse: 3 cycles, then stops. */
 .fx-pulse {
   animation: fx-pulse 2.4s ease-out 1.5s 3;
 }

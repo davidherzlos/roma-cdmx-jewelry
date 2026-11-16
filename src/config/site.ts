@@ -1,25 +1,25 @@
 /**
- * Datos del negocio. Todo lo que el cliente puede cambiar (número, dirección,
- * horario, mapas, redes, ancho del contenedor) vive aquí.
- * Los valores entre [corchetes] están pendientes de confirmar con el cliente.
+ * Business data. Everything the client can change (number, address,
+ * hours, maps, socials, container width) lives here.
+ * Values in [brackets] are still pending confirmation from the client.
  */
 export const site = {
-  /** Nombre comercial. Pendiente: "Roma Joyería" vs "Joyería Roma". */
+  /** Business name. Pending: "Roma Joyería" vs "Joyería Roma". */
   name: 'Roma Joyería',
-  /** Logotipo (texto). */
+  /** Logo (text). */
   logo: { word: 'ROMA', tagline: 'Joyería desde 1999' },
   sinceYear: 1999,
   description:
     'Proveedor de joyería al mayoreo y menudeo con tienda física en el Centro Histórico de la CDMX, cerca del Palacio Nacional. Cotiza por WhatsApp.',
   locale: 'es-MX',
 
-  /** Ancho máximo del contenido en px (el cliente puede probar 1080 o 960). */
+  /** Max content width in px (the client may try 1080 or 960). */
   containerWidth: 1200,
 
   whatsapp: {
-    /** Formato internacional, solo dígitos (p. ej. 5215512345678). Pendiente. */
+    /** International format, digits only (e.g. 5215512345678). Pending. */
     number: '',
-    /** Cómo se muestra el número en pantalla. Pendiente. */
+    /** How the number is displayed on screen. Pending. */
     display: '[Número]',
   },
 
@@ -33,14 +33,14 @@ export const site = {
     landmark: 'Cerca del Palacio Nacional',
   },
 
-  /** Horario en texto libre. Pendiente. */
+  /** Free-text hours. Pending. */
   hours: '[Horario]',
   parking: '[Estacionamiento]',
 
   maps: {
-    /** Enlace "Cómo llegar". */
+    /** "Get directions" link. */
     directionsUrl: 'https://maps.google.com/?q=Centro+Hist%C3%B3rico+CDMX',
-    /** URL del iframe de Google Maps (embed). Vacío = se muestra el marcador de posición. */
+    /** Google Maps iframe (embed) URL. Empty = the placeholder is shown. */
     embedUrl: '',
   },
 
@@ -49,15 +49,15 @@ export const site = {
     facebook: '',
   },
 
-  /** Opacidad de la imagen de fondo del hero, por modo. */
+  /** Hero background image opacity, per mode. */
   hero: {
-    backgroundDay: '/images/hero-fondo-dia.jpg',
-    backgroundNight: '/images/hero-fondo-noche.jpg',
+    backgroundDay: '/images/hero-background-day.jpg',
+    backgroundNight: '/images/hero-background-night.jpg',
     opacityDay: 0.6,
     opacityNight: 0.75,
   },
 
-  /** Rutas de fotos reales. Vacío = marcador de posición. */
+  /** Real photo paths. Empty = placeholder. */
   photos: {
     hero: '',
     facade: '',

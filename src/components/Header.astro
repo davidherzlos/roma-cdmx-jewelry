@@ -85,7 +85,7 @@ import { nav, ui, messages } from '@/data/content';
   const root = document.documentElement;
   const STORAGE_KEY = 'roma-theme';
 
-  // ── Interruptor día/noche ──
+  // ── Day/night switch ──
   const switchBtn = document.querySelector<HTMLButtonElement>('[data-theme-switch]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let animTimer: number | undefined;
@@ -108,22 +108,22 @@ import { nav, ui, messages } from '@/data/content';
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
-      /* almacenamiento no disponible */
+      /* storage unavailable */
     }
   });
 
-  // Si el usuario no ha elegido, seguimos al dispositivo.
+  // If the user hasn't chosen, follow the device.
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
     let saved: string | null = null;
     try {
       saved = localStorage.getItem(STORAGE_KEY);
     } catch {
-      /* sin almacenamiento */
+      /* no storage */
     }
     if (saved !== 'night' && saved !== 'day') applyTheme(e.matches ? 'night' : 'day', true);
   });
 
-  // ── Menú móvil ──
+  // ── Mobile menu ──
   const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
   const menu = document.querySelector<HTMLElement>('[data-menu]');
   const iconOpen = menuBtn?.querySelector<HTMLElement>('[data-icon-open]');
@@ -151,7 +151,7 @@ import { nav, ui, messages } from '@/data/content';
     if (e.matches) setMenu(false);
   });
 
-  // ── Resaltar la sección activa del menú ──
+  // ── Highlight the active menu section ──
   const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-spy]'));
   const ids = [...new Set(links.map((l) => l.dataset.spy!))];
   const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
@@ -171,7 +171,7 @@ import { nav, ui, messages } from '@/data/content';
       { rootMargin: '-45% 0px -50% 0px' },
     );
     sections.forEach((s) => io.observe(s));
-    // Arriba del todo (hero) no hay sección activa.
+    // At the very top (hero) there's no active section.
     const hero = document.getElementById('inicio');
     if (hero) {
       new IntersectionObserver(

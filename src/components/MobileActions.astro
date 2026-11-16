@@ -5,7 +5,7 @@ import { messages, ui } from '@/data/content';
 import { waLink } from '@/lib/whatsapp';
 ---
 
-<!-- Teléfonos: barra inferior "Cómo llegar" + "WhatsApp" -->
+<!-- Phones: bottom bar "Get directions" + "WhatsApp" -->
 <div
   class="glass-header fixed inset-x-0 bottom-0 z-[25] hidden gap-2.5 border-t border-header-line bg-header px-4 pt-3 pb-[calc(12px+env(safe-area-inset-bottom))] max-md:flex"
 >
@@ -28,7 +28,7 @@ import { waLink } from '@/lib/whatsapp';
   </a>
 </div>
 
-<!-- Tablet y escritorio: botón flotante (pulsa 3 veces y se detiene) -->
+<!-- Tablet and desktop: floating button (pulses 3 times, then stops) -->
 <a
   href={waLink(messages.general)}
   aria-label={`${ui.fabLabel} ${ui.opensWhatsApp}`}

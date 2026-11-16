@@ -2,20 +2,20 @@
   import type { newsletter } from '@/data/content';
 
   type Copy = typeof newsletter;
-  type Field = 'nombre' | 'telefono' | 'consentimiento';
+  type Field = 'name' | 'phone' | 'consent';
 
   interface Props {
     copy: Copy;
-    /** PUBLIC_NEWSLETTER_ENDPOINT. Vacío = se muestra un aviso claro. */
+    /** PUBLIC_NEWSLETTER_ENDPOINT. Empty = a clear notice is shown. */
     endpoint: string;
   }
 
   let { copy, endpoint }: Props = $props();
 
-  let nombre = $state('');
-  let telefono = $state('');
-  let interes = $state(copy.interestOptions[0]?.value ?? '');
-  let consentimiento = $state(false);
+  let name = $state('');
+  let phone = $state('');
+  let interest = $state(copy.interestOptions[0]?.value ?? '');
+  let consent = $state(false);
   let status = $state('');
   let invalid = $state<Field | null>(null);
   let sending = $state(false);
@@ -27,7 +27,7 @@
   function fail(field: Field, message: string) {
     invalid = field;
     status = message;
-    const el = field === 'nombre' ? nameEl : field === 'telefono' ? phoneEl : consentEl;
+    const el = field === 'name' ? nameEl : field === 'phone' ? phoneEl : consentEl;
     el?.focus();
   }
 
@@ -35,11 +35,11 @@
     event.preventDefault();
     if (sending) return;
 
-    const name = nombre.trim();
-    const digits = telefono.replace(/\D/g, '');
-    if (!name) return fail('nombre', copy.errors.name);
-    if (digits.length < 10) return fail('telefono', copy.errors.phone);
-    if (!consentimiento) return fail('consentimiento', copy.errors.consent);
+    const trimmedName = name.trim();
+    const digits = phone.replace(/\D/g, '');
+    if (!trimmedName) return fail('name', copy.errors.name);
+    if (digits.length < 10) return fail('phone', copy.errors.phone);
+    if (!consent) return fail('consent', copy.errors.consent);
     invalid = null;
 
     if (!endpoint) {
@@ -54,19 +54,19 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          nombre: name,
+          nombre: trimmedName,
           telefono: digits,
-          interes,
-          consentimiento,
+          interes: interest,
+          consentimiento: consent,
           fecha: new Date().toISOString(),
         }),
       });
       if (!res.ok) throw new Error(String(res.status));
-      status = copy.success.replace('{nombre}', name);
-      nombre = '';
-      telefono = '';
-      interes = copy.interestOptions[0]?.value ?? '';
-      consentimiento = false;
+      status = copy.success.replace('{nombre}', trimmedName);
+      name = '';
+      phone = '';
+      interest = copy.interestOptions[0]?.value ?? '';
+      consent = false;
     } catch {
       status = copy.errors.network;
     } finally {
@@ -90,20 +90,20 @@
   <label for="nl-name" class="mb-1.5 block text-sm font-bold">{copy.nameLabel}</label>
   <input
     bind:this={nameEl}
-    bind:value={nombre}
+    bind:value={name}
     id="nl-name"
     name="nombre"
     type="text"
     autocomplete="name"
     required
-    aria-invalid={invalid === 'nombre' ? 'true' : undefined}
+    aria-invalid={invalid === 'name' ? 'true' : undefined}
     class={inputClass}
   />
 
   <label for="nl-phone" class="mb-1.5 block text-sm font-bold">{copy.phoneLabel}</label>
   <input
     bind:this={phoneEl}
-    bind:value={telefono}
+    bind:value={phone}
     id="nl-phone"
     name="telefono"
     type="tel"
@@ -111,7 +111,7 @@
     autocomplete="tel"
     placeholder={copy.phonePlaceholder}
     required
-    aria-invalid={invalid === 'telefono' ? 'true' : undefined}
+    aria-invalid={invalid === 'phone' ? 'true' : undefined}
     class={inputClass}
   />
 
@@ -125,7 +125,7 @@
             type="radio"
             name="interes"
             value={opt.value}
-            bind:group={interes}
+            bind:group={interest}
             class="m-0 size-[18px] accent-gold-mid"
           />
           {opt.label}
@@ -137,12 +137,12 @@
   <label for="nl-ok" class="mb-6 flex min-h-11 cursor-pointer items-start gap-2.5 text-sm leading-normal text-form-soft">
     <input
       bind:this={consentEl}
-      bind:checked={consentimiento}
+      bind:checked={consent}
       id="nl-ok"
       name="consentimiento"
       type="checkbox"
       required
-      aria-invalid={invalid === 'consentimiento' ? 'true' : undefined}
+      aria-invalid={invalid === 'consent' ? 'true' : undefined}
       class="m-0 mt-0.5 size-[18px] shrink-0 accent-gold-mid"
     />
     {copy.consentLabel}

@@ -1,7 +1,7 @@
 /**
- * Todo el texto visible de la página y sus listas.
- * Editar aquí nunca requiere tocar componentes.
- * Lo que está entre [corchetes] sigue pendiente de confirmar con el cliente.
+ * All visible page copy and its lists.
+ * Editing here never requires touching components.
+ * Values in [brackets] are still pending confirmation from the client.
  */
 import { site } from '@/config/site';
 
@@ -88,7 +88,7 @@ export const catalog = {
   },
   askPrefix: 'Preguntar por',
   askWhatsApp: 'Preguntar por WhatsApp',
-  /** `photo` vacío = marcador de posición. Precios pendientes. */
+  /** `photo` empty = placeholder. Prices pending. */
   categories: [
     { name: 'Anillos', body: 'Modelos para dama y caballero, de uso diario y para ocasión.', priceMayoreo: '[precio]', priceMenudeo: '[precio]', photo: '' },
     { name: 'Cadenas y collares', body: 'Diferentes largos, grosores y tejidos.', priceMayoreo: '[precio]', priceMenudeo: '[precio]', photo: '' },
@@ -133,7 +133,7 @@ export const clients = {
     body: 'Te atendemos directamente y ofrecemos precios preferentes según tu volumen de compra. Ideal para revendedores y comercios.',
     cta: 'Cotizar mayoreo',
   },
-  /** Reseñas reales pendientes (con permiso del cliente). */
+  /** Real reviews pending (with the client's permission). */
   reviews: [
     { quote: '“[Reseña de un cliente — idealmente tomada de Google, con su permiso.]”', name: '[Nombre]', kind: 'Revendedora' },
     { quote: '“[Reseña de un cliente — idealmente tomada de Google, con su permiso.]”', name: '[Nombre]', kind: 'Local comercial' },
@@ -203,7 +203,7 @@ export const newsletter = {
     network: 'No pudimos enviar tus datos. Inténtalo de nuevo o escríbenos por WhatsApp.',
   },
   sending: 'Enviando…',
-  /** `{nombre}` se reemplaza con el nombre escrito. */
+  /** `{nombre}` is replaced with the name entered. */
   success: '¡Listo, {nombre}! Te avisaremos de las novedades por WhatsApp.',
 };
 
@@ -220,7 +220,7 @@ export const footer = {
 export const privacy = {
   title: 'Aviso de privacidad',
   back: 'Volver al inicio',
-  /** Texto pendiente de revisión por un abogado. */
+  /** Text pending review by a lawyer. */
   paragraphs: [
     '[Texto del aviso de privacidad pendiente — debe revisarlo un abogado antes de publicarse.]',
     '[Responsable del tratamiento de datos, finalidades, datos que se recaban (nombre y número de WhatsApp), medios para ejercer derechos ARCO y forma de darse de baja.]',
