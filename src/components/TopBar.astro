@@ -1,0 +1,18 @@
+---
+import { topBar, ui } from '@/data/content';
+import { waLink } from '@/lib/whatsapp';
+---
+
+<div class="bg-topbar text-sm text-topbar-ink">
+  <div class="container-site flex flex-wrap items-center justify-between gap-3 py-2.5">
+    <span class="max-md:hidden">{topBar.text}</span>
+    <a
+      href={waLink()}
+      target="_blank"
+      rel="noopener"
+      class="inline-flex min-h-8 items-center text-topbar-ink hover:text-topbar-ink"
+    >
+      {topBar.whatsappLabel}<span class="sr-only"> {ui.opensWhatsApp}</span>
+    </a>
+  </div>
+</div>

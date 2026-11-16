@@ -1,0 +1,35 @@
+---
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import NewsletterForm from '@/components/islands/NewsletterForm.svelte';
+import { contact, messages, newsletter } from '@/data/content';
+
+const endpoint = import.meta.env.PUBLIC_NEWSLETTER_ENDPOINT ?? '';
+---
+
+<section
+  id="contacto"
+  class="section-hairline pattern-contact bg-fixed-desktop relative overflow-hidden bg-band text-on-dark"
+>
+  <div
+    aria-hidden="true"
+    class="fx-drift outline-text pointer-events-none absolute -bottom-4 left-0 font-display text-[110px] leading-none font-semibold tracking-[0.1em] whitespace-nowrap md:-bottom-10 md:text-[170px] lg:text-[240px]"
+  >
+    {contact.outline}
+  </div>
+  <div
+    class="container-site relative flex flex-wrap items-center gap-9 py-16 md:gap-14 md:py-[88px] lg:py-[120px]"
+  >
+    <div class="min-w-0 flex-[1_1_440px]">
+      <Eyebrow tone="on-dark">{contact.eyebrow}</Eyebrow>
+      <h2 class="title-glow m-0 mb-5 font-display text-[clamp(36px,4.4vw,52px)] leading-[1.15] font-normal">
+        {contact.titleBefore}<span class="text-accent italic">{contact.titleAccent}</span>{contact.titleAfter}
+      </h2>
+      <p class="m-0 mb-8 text-[17px] leading-[1.7] text-on-dark-soft">{contact.body}</p>
+      <WhatsAppButton size="lg" message={messages.general}>{contact.cta}</WhatsAppButton>
+      <p class="mt-5 mb-0 text-[15px] text-on-dark-soft">{contact.note}</p>
+    </div>
+
+    <NewsletterForm client:visible copy={newsletter} endpoint={endpoint} />
+  </div>
+</section>

@@ -1,0 +1,19 @@
+---
+interface Props {
+  /** Color: dorado normal o dorado claro sobre fondo oscuro. */
+  tone?: 'gold' | 'on-dark';
+  /** Margen inferior (por defecto mb-3). */
+  class?: string;
+}
+const { tone = 'gold', class: className = 'mb-3' } = Astro.props;
+---
+
+<p
+  class:list={[
+    'mt-0 text-sm font-bold tracking-[0.16em] uppercase',
+    tone === 'gold' ? 'text-gold' : 'text-on-dark-gold',
+    className,
+  ]}
+>
+  <slot />
+</p>
