@@ -1,0 +1,185 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { site } from '@/config/site';
+import { nav, ui, messages } from '@/data/content';
+---
+
+<header
+  class="glass-header sticky top-0 z-30 border-b border-header-line bg-header shadow-header"
+  data-header
+>
+  <div class="container-site flex items-center justify-between gap-5 py-[18px] max-md:gap-2.5 max-md:py-3">
+    <a href="#inicio" aria-label={ui.logoLabel} class="flex flex-col leading-none text-ink no-underline hover:text-ink">
+      <span class="title-glow font-display text-[34px] font-semibold tracking-[0.12em] text-ink">{site.logo.word}</span>
+      <span class="mt-1 text-[11px] font-bold tracking-[0.28em] text-gold uppercase">{site.logo.tagline}</span>
+    </a>
+
+    <nav aria-label={ui.navLabel} class="hidden flex-wrap gap-6 text-[15px] font-bold nav:flex">
+      {
+        nav.map((n) => (
+          <a
+            href={`#${n.id}`}
+            data-spy={n.id}
+            class="inline-flex min-h-11 items-center border-b-2 border-transparent pt-1.5 pb-1 text-ink no-underline hover:text-gold aria-[current=true]:border-gold aria-[current=true]:text-gold"
+          >
+            {n.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-3.5">
+      <button
+        type="button"
+        class="inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-[10px] border border-switch-border bg-switch-track p-0 text-ink nav:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label={ui.menuButton}
+        data-menu-toggle
+      >
+        <span data-icon-open><Icon name="menu" size={22} /></span>
+        <span data-icon-close hidden><Icon name="close" size={22} /></span>
+      </button>
+
+      <button
+        type="button"
+        role="switch"
+        aria-checked="false"
+        aria-label={ui.themeSwitch}
+        title={ui.themeSwitchTitle}
+        class="relative h-11 w-20 shrink-0 cursor-pointer rounded-full border border-switch-border bg-switch-track p-0 text-switch-icon"
+        data-theme-switch
+      >
+        <span class="absolute top-[13px] left-3"><Icon name="sun" size={16} /></span>
+        <span class="absolute top-[13px] right-3"><Icon name="moon" size={16} /></span>
+        <span class="theme-knob absolute top-1 left-1 size-[34px] rounded-full bg-switch-knob shadow-knob"></span>
+      </button>
+
+      <WhatsAppButton size="sm" message={messages.general} class="max-md:hidden">{ui.whatsappShort}</WhatsAppButton>
+    </div>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    aria-label={ui.mobileNavLabel}
+    class="border-t border-header-line bg-header px-5 pt-2 pb-4 nav:hidden"
+    hidden
+    data-menu
+  >
+    {
+      nav.map((n) => (
+        <a
+          href={`#${n.id}`}
+          data-spy={n.id}
+          class="flex min-h-[52px] items-center border-b border-line text-lg font-bold text-ink no-underline hover:text-gold aria-[current=true]:text-gold"
+        >
+          {n.label}
+        </a>
+      ))
+    }
+  </nav>
+</header>
+
+<script>
+  const root = document.documentElement;
+  const STORAGE_KEY = 'roma-theme';
+
+  // ── Day/night switch ──
+  const switchBtn = document.querySelector<HTMLButtonElement>('[data-theme-switch]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let animTimer: number | undefined;
+
+  function applyTheme(theme: 'day' | 'night', animate: boolean) {
+    if (animate && !reduced.matches) {
+      root.classList.add('theme-anim');
+      window.clearTimeout(animTimer);
+      animTimer = window.setTimeout(() => root.classList.remove('theme-anim'), 600);
+    }
+    root.setAttribute('data-theme', theme);
+    switchBtn?.setAttribute('aria-checked', theme === 'night' ? 'true' : 'false');
+  }
+
+  applyTheme(root.getAttribute('data-theme') === 'night' ? 'night' : 'day', false);
+
+  switchBtn?.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'night' ? 'day' : 'night';
+    applyTheme(next, true);
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* storage unavailable */
+    }
+  });
+
+  // If the user hasn't chosen, follow the device.
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    let saved: string | null = null;
+    try {
+      saved = localStorage.getItem(STORAGE_KEY);
+    } catch {
+      /* no storage */
+    }
+    if (saved !== 'night' && saved !== 'day') applyTheme(e.matches ? 'night' : 'day', true);
+  });
+
+  // ── Mobile menu ──
+  const menuBtn = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.querySelector<HTMLElement>('[data-menu]');
+  const iconOpen = menuBtn?.querySelector<HTMLElement>('[data-icon-open]');
+  const iconClose = menuBtn?.querySelector<HTMLElement>('[data-icon-close]');
+
+  function setMenu(open: boolean) {
+    if (!menu || !menuBtn) return;
+    menu.hidden = !open;
+    menuBtn.setAttribute('aria-expanded', String(open));
+    if (iconOpen) iconOpen.hidden = open;
+    if (iconClose) iconClose.hidden = !open;
+  }
+
+  menuBtn?.addEventListener('click', () => setMenu(Boolean(menu?.hidden)));
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setMenu(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menu && !menu.hidden) {
+      setMenu(false);
+      menuBtn?.focus();
+    }
+  });
+  window.matchMedia('(min-width: 1101px)').addEventListener('change', (e) => {
+    if (e.matches) setMenu(false);
+  });
+
+  // ── Highlight the active menu section ──
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-spy]'));
+  const ids = [...new Set(links.map((l) => l.dataset.spy!))];
+  const sections = ids.map((id) => document.getElementById(id)).filter((el): el is HTMLElement => !!el);
+
+  function setActive(id: string | null) {
+    for (const l of links) {
+      if (l.dataset.spy === id) l.setAttribute('aria-current', 'true');
+      else l.removeAttribute('aria-current');
+    }
+  }
+
+  if ('IntersectionObserver' in window && sections.length) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) if (entry.isIntersecting) setActive(entry.target.id);
+      },
+      { rootMargin: '-45% 0px -50% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+    // At the very top (hero) there's no active section.
+    const hero = document.getElementById('inicio');
+    if (hero) {
+      new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) setActive(null);
+        },
+        { rootMargin: '-45% 0px -50% 0px' },
+      ).observe(hero);
+    }
+  }
+</script>

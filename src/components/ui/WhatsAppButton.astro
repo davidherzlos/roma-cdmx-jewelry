@@ -1,0 +1,33 @@
+---
+import Icon from './Icon.astro';
+import { waLink } from '@/lib/whatsapp';
+import { ui } from '@/data/content';
+
+interface Props {
+  message?: string;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { message, size = 'md', class: className } = Astro.props;
+
+const sizes = {
+  sm: { cls: 'min-h-11 gap-2 px-5 text-[15px]', icon: 18 },
+  md: { cls: 'min-h-[52px] gap-2.5 px-7 text-base', icon: 20 },
+  lg: { cls: 'min-h-14 gap-2.5 px-[30px] text-[17px]', icon: 22 },
+}[size];
+---
+
+<a
+  href={waLink(message)}
+  target="_blank"
+  rel="noopener"
+  class:list={[
+    'inline-flex items-center rounded-md bg-wa font-bold text-white no-underline shadow-wa hover:text-white',
+    sizes.cls,
+    className,
+  ]}
+>
+  <Icon name="whatsapp" size={sizes.icon} />
+  <slot /><span class="sr-only"> {ui.opensWhatsApp}</span>
+</a>

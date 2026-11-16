@@ -1,0 +1,40 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { site } from '@/config/site';
+import { messages, ui } from '@/data/content';
+import { waLink } from '@/lib/whatsapp';
+---
+
+<!-- Phones: bottom bar "Get directions" + "WhatsApp" -->
+<div
+  class="glass-header fixed inset-x-0 bottom-0 z-[25] hidden gap-2.5 border-t border-header-line bg-header px-4 pt-3 pb-[calc(12px+env(safe-area-inset-bottom))] max-md:flex"
+>
+  <a
+    href={site.maps.directionsUrl}
+    target="_blank"
+    rel="noopener"
+    class="flex min-h-[50px] flex-[1_1_0] items-center justify-center rounded-[10px] border border-ghost-border font-bold text-ghost-ink no-underline hover:text-ghost-ink"
+  >
+    {ui.directions}<span class="sr-only"> {ui.opensMaps}</span>
+  </a>
+  <a
+    href={waLink(messages.general)}
+    target="_blank"
+    rel="noopener"
+    class="flex min-h-[50px] flex-[2_1_0] items-center justify-center gap-2 rounded-[10px] bg-wa font-bold text-white no-underline shadow-wa hover:text-white"
+  >
+    <Icon name="whatsapp" size={18} strokeWidth={1.9} />
+    {ui.whatsappShort}<span class="sr-only"> {ui.opensWhatsApp}</span>
+  </a>
+</div>
+
+<!-- Tablet and desktop: floating button (pulses 3 times, then stops) -->
+<a
+  href={waLink(messages.general)}
+  aria-label={`${ui.fabLabel} ${ui.opensWhatsApp}`}
+  target="_blank"
+  rel="noopener"
+  class="fx-pulse fixed right-6 bottom-6 z-10 flex size-[60px] items-center justify-center rounded-full bg-wa text-white shadow-fab hover:text-white max-md:hidden"
+>
+  <Icon name="whatsapp" size={28} />
+</a>

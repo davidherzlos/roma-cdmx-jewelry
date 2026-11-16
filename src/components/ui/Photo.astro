@@ -1,0 +1,26 @@
+---
+/**
+ * Real photo, or an accessible placeholder if there's no file yet.
+ */
+interface Props {
+  src?: string;
+  /** Spanish alt text (also used as the placeholder's label). */
+  alt: string;
+  /** Visible placeholder text, e.g. "[Foto · fachada]". */
+  placeholder: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt, placeholder, class: className, loading = 'lazy' } = Astro.props;
+---
+
+{
+  src ? (
+    <img src={src} alt={alt} loading={loading} decoding="async" class:list={['block w-full object-cover', className]} />
+  ) : (
+    <div role="img" aria-label={`Foto: ${alt}`} class:list={['flex items-center justify-center text-center text-sm text-ph-ink', className]}>
+      <span aria-hidden="true">{placeholder}</span>
+    </div>
+  )
+}

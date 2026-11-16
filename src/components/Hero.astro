@@ -1,0 +1,65 @@
+---
+import Photo from '@/components/ui/Photo.astro';
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import WhatsAppButton from '@/components/ui/WhatsAppButton.astro';
+import { site } from '@/config/site';
+import { hero, messages } from '@/data/content';
+---
+
+<section id="inicio" class="bg-hero-glow relative overflow-hidden bg-hero">
+  <div aria-hidden="true" class="hero-img fx-up pointer-events-none absolute inset-x-0 -top-[90px] -bottom-[90px]"></div>
+  <div aria-hidden="true" class="hero-veil pointer-events-none absolute inset-0"></div>
+  <svg
+    aria-hidden="true"
+    class="fx-up pointer-events-none absolute -bottom-[60px] -left-[70px] max-md:hidden"
+    width="300"
+    height="340"
+    viewBox="0 0 380 440"
+    fill="none"
+    stroke="var(--gem-stroke)"
+    stroke-width="1.2"
+  >
+    <polygon points="190,20 330,140 190,420 50,140"></polygon>
+    <polygon points="110,140 190,60 270,140 190,420"></polygon>
+    <line x1="50" y1="140" x2="330" y2="140"></line>
+    <line x1="110" y1="140" x2="190" y2="20"></line>
+    <line x1="270" y1="140" x2="190" y2="20"></line>
+  </svg>
+
+  <div
+    class="container-site relative flex flex-wrap items-center gap-8 pt-10 pb-[120px] md:gap-10 md:pt-16 md:pb-[136px] lg:gap-14 lg:pt-24 lg:pb-[152px]"
+  >
+    <div class="fx-rise min-w-0 flex-[1_1_460px]">
+      <Eyebrow class="mb-4">{hero.eyebrow}</Eyebrow>
+      <h1 class="title-glow m-0 mb-6 font-display text-[clamp(40px,5vw,60px)] leading-[1.12] font-normal text-ink">
+        {hero.titleBefore}<span class="text-accent italic">{hero.titleAccent}</span>{hero.titleAfter}
+      </h1>
+      <p class="m-0 mb-9 max-w-[520px] text-lg leading-[1.7] text-soft">{hero.intro}</p>
+      <div class="flex flex-wrap gap-3.5">
+        <WhatsAppButton message={messages.general}>{hero.primaryCta}</WhatsAppButton>
+        <a
+          href="#categorias"
+          class="inline-flex min-h-[52px] items-center rounded-md border border-ghost-border px-7 text-base font-bold text-ghost-ink no-underline hover:text-ghost-ink"
+        >
+          {hero.secondaryCta}
+        </a>
+      </div>
+    </div>
+
+    <div class="relative min-w-0 flex-[1_1_420px]">
+      <Photo
+        src={site.photos.hero}
+        alt={hero.photoAlt}
+        placeholder={hero.photoPlaceholder}
+        loading="eager"
+        class="fx-up h-[300px] rounded-xl bg-ph shadow-photo md:h-[420px] lg:h-[500px]"
+      />
+      <div
+        class="glass absolute bottom-4 left-3 rounded-[14px] border border-glass-border bg-glass px-4 py-3 shadow-glass md:bottom-12 md:-left-7 md:px-[22px] md:py-[18px]"
+      >
+        <div class="text-xs font-bold tracking-[0.18em] text-gold uppercase">{hero.badgeEyebrow}</div>
+        <div class="mt-1 font-display text-xl text-ink">{hero.badgeText}</div>
+      </div>
+    </div>
+  </div>
+</section>

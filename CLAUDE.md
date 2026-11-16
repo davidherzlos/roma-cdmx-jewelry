@@ -11,6 +11,28 @@ action opens **WhatsApp** with a pre-written message. Audience: resellers (mayor
 businesses and end customers (menudeo). Most visitors arrive from Instagram **on phones**.
 All visible copy is **Spanish (es-MX)**.
 
+## 1b. Language rule
+
+**Everything is in English except what visitors see or hear on the site.**
+
+| English (always) | Spanish, es-MX (site content only) |
+| --- | --- |
+| Code: identifiers, file and folder names, CSS classes, data keys | Visible copy: headings, paragraphs, buttons, menu, labels, form messages |
+| Comments and JSDoc/TSDoc | Pre-written WhatsApp messages |
+| README, CLAUDE.md, docs, TODOs, checklists | `alt` text, `aria-label`, `title`, `role="status"` messages |
+| Commit messages, branch names, PR titles and descriptions, issues | `<title>`, meta description, Open Graph text, JSON-LD text values |
+| Console/log output, error messages meant for developers | Placeholders shown on the page (`[Calle y número]`, `[precio]`) |
+| Conversation with the developer | `/aviso-de-privacidad` page text |
+
+Notes:
+
+- URLs, anchors and slugs that appear to visitors stay in Spanish (`#catalogo`, `#visitanos`,
+  `/aviso-de-privacidad`) because they are part of the site's content.
+- Data files keep English keys with Spanish values, e.g.
+  `{ title: 'Precios competitivos', body: '…' }`.
+- When touching a file that has Spanish comments or docs, translate them to English in the same
+  change.
+
 ## 2. Source of truth
 
 - Design: the artboard **"Roma — responsive"** from the Claude Design handoff (desktop), plus
@@ -226,7 +248,7 @@ weakest pair, gold `#8A6A2F` on cream `#F7F3EC`, is 4.54:1 — don't make it lig
 
 ## 10. Content still pending from the client
 
-Keep placeholders in `[corchetes]` until real data arrives; never invent business facts.
+Keep placeholders in `[square brackets]` until real data arrives; never invent business facts.
 
 - [ ] WhatsApp number, street address, postal code, hours, parking
 - [ ] Real photos: hero/vitrina, hero background, fachada, one per category

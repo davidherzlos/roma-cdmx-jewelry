@@ -1,0 +1,39 @@
+---
+import { site } from '@/config/site';
+import { footer, messages, ui } from '@/data/content';
+import { waLink } from '@/lib/whatsapp';
+
+const links = [
+  { label: footer.links.privacy, href: '/aviso-de-privacidad', external: false, sr: '' },
+  { label: footer.links.instagram, href: site.socials.instagram, external: true, sr: '' },
+  { label: footer.links.facebook, href: site.socials.facebook, external: true, sr: '' },
+  { label: footer.links.whatsapp, href: waLink(messages.general), external: true, sr: ui.opensWhatsApp },
+];
+---
+
+<footer class="section-hairline bg-footer text-on-dark-soft max-md:pb-[84px]">
+  <div class="container-site flex flex-wrap justify-between gap-4 py-7 text-sm max-md:flex-col">
+    <span>{footer.copyright}</span>
+    <ul class="m-0 flex list-none flex-wrap items-center gap-x-3 p-0 md:gap-x-1">
+      {
+        links.map((l, i) => (
+          <li class="flex items-center gap-1">
+            {i > 0 && <span aria-hidden="true" class="max-md:hidden">·</span>}
+            {l.href ? (
+              <a
+                href={l.href}
+                {...(l.external ? { target: '_blank', rel: 'noopener' } : {})}
+                class="inline-flex min-h-11 items-center md:px-1 text-on-dark-soft underline-offset-4 hover:text-on-dark-gold hover:underline md:min-h-6"
+              >
+                {l.label}
+                {l.sr && <span class="sr-only"> {l.sr}</span>}
+              </a>
+            ) : (
+              <span class="px-1">{l.label}</span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</footer>

@@ -1,0 +1,131 @@
+---
+import Eyebrow from '@/components/ui/Eyebrow.astro';
+import Photo from '@/components/ui/Photo.astro';
+import { catalog, ui, type BuyMode } from '@/data/content';
+import { waLink } from '@/lib/whatsapp';
+
+const modes = Object.keys(catalog.modes) as BuyMode[];
+const initial: BuyMode = 'mayoreo';
+
+const cards = catalog.categories.map((c) => {
+  const lower = c.name.toLowerCase();
+  const byMode = Object.fromEntries(
+    modes.map((m) => {
+      const mode = catalog.modes[m];
+      const price = `${mode.pricePrefix} ${m === 'mayoreo' ? c.priceMayoreo : c.priceMenudeo}`;
+      return [
+        m,
+        {
+          price,
+          href: waLink(mode.message(lower)),
+          label: `${c.name}, ${price}. ${catalog.askWhatsApp} ${ui.opensWhatsApp}`,
+        },
+      ];
+    }),
+  ) as Record<BuyMode, { price: string; href: string; label: string }>;
+  return { ...c, lower, byMode };
+});
+---
+
+<section id="categorias" class="bg-glow relative overflow-hidden bg-bg">
+  <div class="container-site relative pt-[72px] pb-14 md:pt-[104px] md:pb-[72px] lg:pt-[120px] lg:pb-24">
+    <div class="mb-10 flex flex-wrap items-end justify-between gap-6">
+      <div>
+        <Eyebrow>{catalog.eyebrow}</Eyebrow>
+        <h2 class="title-glow m-0 font-display text-[clamp(34px,4vw,46px)] font-normal text-ink">{catalog.title}</h2>
+      </div>
+      <div
+        role="group"
+        aria-label={catalog.toggleLabel}
+        class="grid w-full grid-cols-2 overflow-hidden rounded-lg border border-seg-border bg-seg md:flex md:w-auto md:flex-wrap"
+        data-mode-toggle
+      >
+        {
+          modes.map((m) => (
+            <button
+              type="button"
+              data-mode={m}
+              aria-pressed={m === initial ? 'true' : 'false'}
+              class="min-h-12 cursor-pointer border-0 bg-transparent px-2 py-2.5 font-sans text-sm leading-[1.3] font-bold text-seg-ink aria-pressed:bg-seg-on aria-pressed:text-seg-on-ink md:px-[22px] md:py-0 md:text-[15px]"
+            >
+              {catalog.modes[m].button}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <p
+      class="m-0 mb-8 max-w-[640px] text-base leading-[1.65] text-soft"
+      aria-live="polite"
+      data-mode-note
+      data-note-mayoreo={catalog.modes.mayoreo.note}
+      data-note-menudeo={catalog.modes.menudeo.note}
+    >
+      {catalog.modes[initial].note}
+    </p>
+
+    <div class="relative grid grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))] gap-6">
+      {
+        cards.map((c) => (
+          <a
+            href={c.byMode[initial].href}
+            target="_blank"
+            rel="noopener"
+            aria-label={c.byMode[initial].label}
+            data-cat
+            data-href-mayoreo={c.byMode.mayoreo.href}
+            data-href-menudeo={c.byMode.menudeo.href}
+            data-label-mayoreo={c.byMode.mayoreo.label}
+            data-label-menudeo={c.byMode.menudeo.label}
+            data-price-mayoreo={c.byMode.mayoreo.price}
+            data-price-menudeo={c.byMode.menudeo.price}
+            class="lift fx-rise glass flex flex-col overflow-hidden rounded-xl border border-card-border bg-card text-ink no-underline shadow-card [--glass-blur:10px] hover:text-ink"
+          >
+            <Photo src={c.photo} alt={`Foto de ${c.lower}`} placeholder={`[Foto · ${c.name}]`} class="h-60 bg-ph2 text-[13px]" />
+            <div class="flex flex-col gap-1.5 px-[22px] pt-5 pb-[22px]">
+              <div class="flex items-baseline justify-between gap-3">
+                <span class="font-display text-[26px]">{c.name}</span>
+                <span class="text-sm text-soft" data-price>
+                  {c.byMode[initial].price}
+                </span>
+              </div>
+              <span class="text-[15px] leading-[1.55] text-soft">{c.body}</span>
+              <span class="mt-2 inline-flex min-h-8 items-center text-[15px] font-bold text-wa-link">
+                {catalog.askPrefix} {c.lower}&nbsp;<span aria-hidden="true">→</span>
+              </span>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const toggle = document.querySelector<HTMLElement>('[data-mode-toggle]');
+  const note = document.querySelector<HTMLElement>('[data-mode-note]');
+  const cards = document.querySelectorAll<HTMLAnchorElement>('[data-cat]');
+
+  function setMode(mode: string) {
+    toggle?.querySelectorAll<HTMLButtonElement>('[data-mode]').forEach((b) => {
+      b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false');
+    });
+    const text = note?.getAttribute(`data-note-${mode}`);
+    if (note && text) note.textContent = text;
+    cards.forEach((card) => {
+      const href = card.getAttribute(`data-href-${mode}`);
+      const label = card.getAttribute(`data-label-${mode}`);
+      const price = card.getAttribute(`data-price-${mode}`);
+      if (href) card.href = href;
+      if (label) card.setAttribute('aria-label', label);
+      const priceEl = card.querySelector('[data-price]');
+      if (priceEl && price) priceEl.textContent = price;
+    });
+  }
+
+  toggle?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLButtonElement>('[data-mode]');
+    if (btn?.dataset.mode) setMode(btn.dataset.mode);
+  });
+</script>

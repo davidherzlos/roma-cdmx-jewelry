@@ -1,0 +1,22 @@
+---
+import Icon from '@/components/ui/Icon.astro';
+import { trust } from '@/data/content';
+---
+
+<section aria-label={trust.label} class="relative z-[2] -mt-20 px-4 md:-mt-[88px] md:px-8">
+  <div
+    class="glass container-inset grid grid-cols-1 gap-[18px] rounded-[18px] border border-trust-border bg-trust p-[22px] shadow-trust [--glass-blur:16px] md:grid-cols-[repeat(auto-fit,minmax(min(220px,100%),1fr))] md:gap-6 md:p-8"
+  >
+    {
+      trust.items.map((t) => (
+        <div class="flex items-start gap-3.5">
+          <Icon name="shield" size={28} strokeWidth={1.5} class="text-trust-icon" />
+          <div>
+            <div class="text-base font-bold text-trust-ink">{t.title}</div>
+            <div class="mt-1 text-sm leading-normal text-trust-soft">{t.body}</div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
