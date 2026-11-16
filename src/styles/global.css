@@ -83,6 +83,7 @@
   --switch-knob: #ffffff;
   --switch-knob-shadow: 0 2px 6px rgba(42, 38, 34, 0.25);
   --switch-icon: #8a6a2f;
+  --logo-accent: #8a6a2f;
   --focus: #7a5c26;
   --hero-img: var(--hero-img-day, none);
   --hero-opacity: var(--hero-opacity-day, 0.6);
@@ -174,6 +175,7 @@
   --switch-knob: #d6b97a;
   --switch-knob-shadow: 0 0 14px rgba(214, 185, 122, 0.6);
   --switch-icon: #f0d9a3;
+  --logo-accent: #d6b97a;
   --focus: #f0d9a3;
   --hero-img: var(--hero-img-night, none);
   --hero-opacity: var(--hero-opacity-night, 0.75);

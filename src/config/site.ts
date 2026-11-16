@@ -6,8 +6,8 @@
 export const site = {
   /** Business name. Pending: "Roma Joyería" vs "Joyería Roma". */
   name: 'Roma Joyería',
-  /** Logo (text). */
-  logo: { word: 'ROMA', tagline: 'Joyería desde 1999' },
+  /** Logo (text). The diamond replaces the "O" of the wordmark. */
+  logo: { word: 'ROMA', tagline: 'Joyería' },
   sinceYear: 1999,
   description:
     'Proveedor de joyería al mayoreo y menudeo con tienda física en el Centro Histórico de la CDMX, cerca del Palacio Nacional. Cotiza por WhatsApp.',
